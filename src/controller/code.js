@@ -4,8 +4,19 @@ class Code {
     this.axios = axios
   }
 
-  async getRandomCode () {
-    const response = await this.axios.get(`/brocodes/random`)
+  async getRandomCode ({userID}) {
+    const options = {
+      headers: {uuid: `TELEGRAM-${userID}`}
+    }
+    const response = await this.axios.get(`/brocodes/random`, options)
+    return response.data.data
+  }
+
+  async getDayCode ({userID}) {
+    const options = {
+      headers: {uuid: `TELEGRAM-${userID}`}
+    }
+    const response = await this.axios.get(`/brocodes/popular/day`, options)
     return response.data.data
   }
 

@@ -13,18 +13,55 @@ class BotHandler {
   }
 
   async onQuery (msg) {
-    const data = await this.codeController.getRandomCode()
-    const options = {
-      parse_mode: 'markdown',
-      reply_markup: JSON.stringify({
-        inline_keyboard: [
-          [{ text: '0 👍', callback_data: `${UPVOTE}|${data.id}` }],
-          [{ text: '0 👎', callback_data: `${DOWNVOTE}|${data.id}` }],
-          [{ text: 'share', url: `${process.env.BRANCH_DETAIL}${data.id}` }]
-        ]
-      })
+    const userID = msg.from.id
+
+    let data
+    let options
+    let description
+
+    switch (msg.text) {
+      case '/code':
+        data = await this.codeController.getRandomCode({userID})
+        description = `*${data.title}*\n${data.description}`
+        options = {
+          parse_mode: 'markdown',
+          reply_markup: JSON.stringify({
+            inline_keyboard: [
+              [{ text: '0 👍', callback_data: `${UPVOTE}|${data.id}` }],
+              [{ text: '0 👎', callback_data: `${DOWNVOTE}|${data.id}` }],
+              [{ text: 'share', url: `${process.env.BRANCH_DETAIL}${data.id}` }]
+            ]
+          })
+        }
+        break
+      case '/day':
+        data = await this.codeController.getDayCode({userID})
+        description = `*${data.title}*\n${data.description}`
+        options = {
+          parse_mode: 'markdown',
+          reply_markup: JSON.stringify({
+            inline_keyboard: [
+              [{ text: '0 👍', callback_data: `${UPVOTE}|${data.id}` }],
+              [{ text: '0 👎', callback_data: `${DOWNVOTE}|${data.id}` }],
+              [{ text: 'share', url: `${process.env.BRANCH_DETAIL}${data.id}` }]
+            ]
+          })
+        }
+        break
+      case '/app':
+        description = 'Get THE BRO CODE app now!'
+        options = {
+          reply_markup: JSON.stringify({
+            inline_keyboard: [
+              [{ text: 'Android', url: 'https://zf3qx.app.goo.gl/XktS' }],
+              [{ text: 'iOS', url: 'https://goo.gl/Cc8I0q' }],
+              [{ text: 'Amazon', url: 'https://www.amazon.com/dp/B0728DLT5L' }]
+            ]
+          })
+        }
     }
-    this.bot.sendMessage(msg.chat.id, `*${data.title}*\n${data.description}`, options)
+
+    this.bot.sendMessage(msg.chat.id, description, options)
   }
 
   async onCallbackQuery (msg) {
