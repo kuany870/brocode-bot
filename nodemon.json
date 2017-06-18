@@ -1,0 +1,18 @@
+{
+  "restartable": "rs",
+  "ignore": [
+    ".git",
+    "node_modules/",
+    "test",
+    ".idea",
+    "coverage"
+  ],
+  "verbose": false,
+  "execMap": {
+    "js": "node --use_strict"
+  },
+  "events": {
+    "restart": "osascript -e 'display notification \"'$FILENAME'\" with title \"nodemon - Restarted due to:\"'"
+  },
+  "ext": "js json"
+}
