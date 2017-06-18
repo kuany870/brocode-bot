@@ -9,19 +9,19 @@ class Code {
     return response.data.data
   }
 
-  async upvote ({codeID, userID}) {
+  async upvote ({codeID, userID, messageID}) {
     const options = {
       headers: {uuid: `TELEGRAM-${userID}`}
     }
-    const response = await this.axios.post(`/brocodes/${codeID}/upvote`, {}, options)
+    const response = await this.axios.post(`/brocodes/${codeID}/upvote`, {message_id: `${messageID}`}, options)
     return response.data.data
   }
 
-  async downvote ({codeID, userID}) {
+  async downvote ({codeID, userID, messageID}) {
     const options = {
       headers: {uuid: `TELEGRAM-${userID}`}
     }
-    const response = await this.axios.post(`/brocodes/${codeID}/downvote`, {}, options)
+    const response = await this.axios.post(`/brocodes/${codeID}/downvote`, {message_id: `${messageID}`}, options)
     return response.data.data
   }
 }
