@@ -16,6 +16,7 @@
     "nodemon": "yarn lint && ./node_modules/nodemon/bin/nodemon.js ./src/bin/www.js"
   },
   "dependencies": {
+    "axios": "^0.16.2",
     "body-parser": "^1.16.0",
     "dotenv": "^4.0.0",
     "express": "^4.15.3",
