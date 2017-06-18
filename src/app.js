@@ -19,8 +19,10 @@ app.use(morgan('combined', {'stream': log.stream}))
  */
 const bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN, {polling: true})
 const botHandler = new BotHandler(bot)
+bot.onText(/\/query/, msg => botHandler.onQuery(msg))
+bot.on('callback_query', msg => botHandler.onCallbackQuery(msg))
 bot.on('message', msg => botHandler.onMessage(msg))
-bot.on('polling_error', error => log.e(`polling_error: ${JSON.stringify(error)}`))
+bot.on('polling_error', error => log.e(error))
 
 /**
  * Routing
