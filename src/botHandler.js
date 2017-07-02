@@ -27,7 +27,7 @@ class BotHandler {
           parse_mode: 'markdown',
           reply_markup: JSON.stringify({
             inline_keyboard: [
-              [{ text: '0 👍', callback_data: `${UPVOTE}|${data.id}` }],
+              [{ text: '0 👍4', callback_data: `${UPVOTE}|${data.id}` }],
               [{ text: '0 👎', callback_data: `${DOWNVOTE}|${data.id}` }],
               [{ text: 'share', url: `${process.env.BRANCH_DETAIL}${data.id}` }]
             ]
